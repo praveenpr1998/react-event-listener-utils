@@ -1,0 +1,44 @@
+{
+  "name": "react-event-listener-utils",
+  "version": "1.0.6",
+  "description": "a lightweight utility library for managing custom event listeners in React applications. This package provides a flexible hook interface to selectively listen for events on specified elements based on attributes, enabling efficient event handling and data logging. Ideal for enhancing interactivity and analytics tracking in React projects without dependencies on additional libraries.",
+  "main": "dist/index.js",
+  "devDependencies": {
+    "babel-loader": "^9.1.3",
+    "css-loader": "^7.1.2",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.93.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^5.0.4"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/praveenpr1998/react-event-listener-utils.git"
+  },
+  "keywords": [
+    "reactjs",
+    "javascript",
+    "react"
+  ],
+  "author": "Praveen Raj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/praveenpr1998/react-event-listener-utils/issues"
+  },
+  "homepage": "https://github.com/praveenpr1998/react-event-listener-utils#readme",
+  "dependencies": {
+    "@babel/core": "^7.24.8",
+    "@babel/preset-env": "^7.24.8",
+    "@babel/preset-react": "^7.24.7"
+  }
+}
