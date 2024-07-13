@@ -1,4 +1,3 @@
-// useCustomEventListener.js
 import { useEffect } from "react";
 
 function useCustomEventListener({
@@ -10,25 +9,35 @@ function useCustomEventListener({
   onError,
   removeExtraParamsAfterAdding,
 }) {
+  const elementTypesSet = new Set(elementTypes);
+
   useEffect(() => {
     const handleClick = (event) => {
       try {
         const target = event.target;
+
         if (
-          elementTypes.includes(target.tagName.toLowerCase()) &&
+          elementTypesSet.has(target.tagName.toLowerCase()) &&
           target.hasAttribute(primaryAttribute)
         ) {
           const primaryValue = target.getAttribute(primaryAttribute);
-          const secondaryValue = target.getAttribute(secondaryAttribute) || "";
-          const actionString = `${secondaryValue}_clicked`;
+          const secondaryValue = target.getAttribute(secondaryAttribute);
+          const actionString = secondaryValue
+            ? `${secondaryValue}_clicked`
+            : "";
 
-          const extraParams = target.dataset.extraParams
-            ? JSON.parse(target.dataset.extraParams)
-            : {};
-          callback(primaryValue, actionString, extraParams);
+          if (target.hasAttribute("data-extra-params")) {
+            const extraParams = JSON.parse(target.dataset.extraParams);
+            callback(primaryValue, actionString, extraParams);
 
-          if (removeExtraParamsAfterAdding && target.dataset.extraParams) {
-            delete target.dataset.extraParams;
+            if (removeExtraParamsAfterAdding) {
+              target.removeAttribute("data-extra-params");
+              console.log(
+                "Removed data-extra-params attribute from target element"
+              );
+            }
+          } else {
+            callback(primaryValue, actionString);
           }
         }
       } catch (error) {
@@ -43,18 +52,19 @@ function useCustomEventListener({
     let parentElement = document;
 
     if (parentSelector) {
-      parentElement = document.querySelector(parentSelector);
-
-      if (!parentElement) {
-        const error = new Error(
-          `No parent element found for selector: ${parentSelector}`
-        );
-        if (onError) {
-          onError(error);
-        } else {
-          console.error(error.message);
-        }
+      if (typeof parentSelector !== "string") {
+        // Handle invalid selector type, fallback to document
+        console.error("Invalid parentSelector type:", parentSelector);
         parentElement = document;
+      } else {
+        parentElement = document.querySelector(parentSelector);
+        if (!parentElement) {
+          console.error(
+            "No parent element found for selector:",
+            parentSelector
+          );
+          parentElement = document;
+        }
       }
     }
 
@@ -63,15 +73,7 @@ function useCustomEventListener({
     return () => {
       parentElement.removeEventListener("click", handleClick);
     };
-  }, [
-    parentSelector,
-    elementTypes,
-    primaryAttribute,
-    callback,
-    secondaryAttribute,
-    onError,
-    removeExtraParamsAfterAdding,
-  ]);
+  }, []);
 }
 
 export default useCustomEventListener;

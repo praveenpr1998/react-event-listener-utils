@@ -7,12 +7,11 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "index.js",
     library: "reactEventListenerUtils",
-    libraryTarget: "umd", // Universal Module Definition
-    globalObject: "this", // Fixes an issue when using `window` in Node.js environments
+    libraryTarget: "umd",
+    globalObject: "this",
   },
   resolve: {
     extensions: [".js", ".jsx"],
-    e,
   },
   module: {
     rules: [
@@ -32,13 +31,13 @@ module.exports = {
       commonjs: "react",
       commonjs2: "react",
       amd: "react",
-      root: "React", // Indicate global variable if using UMD
+      root: "React",
     },
     "react-dom": {
       commonjs: "react-dom",
       commonjs2: "react-dom",
       amd: "react-dom",
-      root: "ReactDOM", // Indicate global variable if using UMD
+      root: "ReactDOM",
     },
   },
 };
