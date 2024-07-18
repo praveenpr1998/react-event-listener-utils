@@ -1,43 +1,37 @@
 const path = require("path");
+const { merge } = require("webpack-merge");
 
-module.exports = {
+const commonConfig = {
   mode: "production",
   entry: "./src/index.js",
+};
+
+const esmConfig = {
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "index.esm.js",
+    library: {
+      type: "module",
+    },
+    module: true,
+  },
+  experiments: {
+    outputModule: true,
+  },
+};
+
+const cjsConfig = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "index.js",
-    library: "reactEventListenerUtils",
-    libraryTarget: "umd",
-    globalObject: "this",
-  },
-  resolve: {
-    extensions: [".js", ".jsx"],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: "babel-loader",
-      },
-      {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
-      },
-    ],
-  },
-  externals: {
-    react: {
-      commonjs: "react",
-      commonjs2: "react",
-      amd: "react",
-      root: "React",
-    },
-    "react-dom": {
-      commonjs: "react-dom",
-      commonjs2: "react-dom",
-      amd: "react-dom",
-      root: "ReactDOM",
+    library: {
+      name: "reactEventListenerUtils",
+      type: "umd",
     },
   },
 };
+
+module.exports = [
+  merge(commonConfig, esmConfig),
+  merge(commonConfig, cjsConfig),
+];
