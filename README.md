@@ -4,7 +4,7 @@
 
 ## Installation
 
-Install `react-event-listener-utils` via npm:
+Install `react-event-listener-utils` via npm :
 
 > `npm install react-event-listener-utils`
 
