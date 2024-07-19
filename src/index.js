@@ -22,22 +22,21 @@ function useCustomEventListener({
         ) {
           const primaryValue = target.getAttribute(primaryAttribute);
           const secondaryValue = target.getAttribute(secondaryAttribute);
-          const actionString = secondaryValue
-            ? `${secondaryValue}_clicked`
-            : "";
 
+          const logObject = {
+            primaryAttr: primaryValue,
+            secondaryAttribute: secondaryValue,
+            tagName: target.tagName,
+          };
           if (target.hasAttribute("data-extra-params")) {
             const extraParams = JSON.parse(target.dataset.extraParams);
-            callback(primaryValue, actionString, extraParams);
+            callback({ ...logObject, extraParams });
 
             if (removeExtraParamsAfterAdding) {
               target.removeAttribute("data-extra-params");
-              console.log(
-                "Removed data-extra-params attribute from target element"
-              );
             }
           } else {
-            callback(primaryValue, actionString);
+            callback(logObject);
           }
         }
       } catch (error) {
