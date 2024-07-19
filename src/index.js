@@ -24,9 +24,9 @@ function useCustomEventListener({
           const secondaryValue = target.getAttribute(secondaryAttribute);
 
           const logObject = {
-            primaryAttr: primaryValue,
+            primaryAttribute: primaryValue,
             secondaryAttribute: secondaryValue,
-            tagName: target.tagName,
+            tagName: target.tagName.toLowerCase(),
           };
           if (target.hasAttribute("data-extra-params")) {
             const extraParams = JSON.parse(target.dataset.extraParams);
