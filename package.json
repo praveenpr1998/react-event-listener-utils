@@ -1,6 +1,6 @@
 {
   "name": "react-event-listener-utils",
-  "version": "2.0.5",
+  "version": "2.0.9",
   "description": "Custom event listener utility hook for React projects",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",

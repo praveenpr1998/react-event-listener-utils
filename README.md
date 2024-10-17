@@ -6,121 +6,35 @@
 
 Install `react-event-listener-utils` via npm :
 
-> `npm install react-event-listener-utils`
+```bash
+ npm install react-event-listener-utils
+```
 
-## Usage
+## Demo
 
-### Example
+![Alt Text](https://raw.githubusercontent.com/praveenpr1998/assetsfolder/main/demo.gif)
 
-    `import React from 'react';
-    import { useEffect } from 'react';
-    import useCustomEventListener from 'react-event-listener-utils';
+## Usage/Example
 
-    const CustomListenerComponent = () => {
-      // Callback to handle the event
-      const handleShowNotification = (primaryValue, actionString, extraParams) => {
-        console.log('Primary Attribute Value:', primaryValue);
-        console.log('Action String:', actionString);
-        console.log('Extra Params:', extraParams);
-        const logObj = {
-          primaryValue,
-          actionString,
-          ...extraParams
-        };
-        console.log('Log Object:', logObj);
-      };
+```javascript
+import useCustomEventListener from "react-event-listener-utils";
 
-      // Handler for button click to set extra parameters
-      const onButtonClick = (event) => {
-        const extraParams = { test: 'test' }; // Extra params to be added
-        event.target.setAttribute('data-extra-params', JSON.stringify(extraParams));
-      };
+useCustomEventListener({
+  parentSelector: "#parent-container1", // Parent container selector
+  elementTypes: ["button", "a"], // Elements to listen for
+  primaryAttribute: "data-log-click", // Primary attribute to check for
+  callback: handleShowNotification, // Callback function
+  secondaryAttribute: "data-action", // Secondary attribute to generate action string
+  onError: handleError, // Global error callback
+  removeExtraParamsAfterAdding: true, // Remove extra params after adding
+});
+```
 
-      // Global error handler for the hook
-      const handleError = (error) => {
-        console.error('Global Error Handler:', error);
-      };
+useCustomEventListener - To have a better use of this hook call this hook at the starting file of your application.
 
-      // First instance of useCustomEventListener
-      useCustomEventListener({
-        parentSelector: '#parent-container1', // Parent container selector
-        elementTypes: ['button', 'a'], // Elements to listen for
-        primaryAttribute: 'data-log-click', // Primary attribute to check for
-        callback: handleShowNotification, // Callback function
-        secondaryAttribute: 'data-action', // Secondary attribute to generate action string
-        onError: handleError, // Global error callback
-        removeExtraParamsAfterAdding: true // Remove extra params after adding
-      });
+To know more about the props you can refer the props details at the bottom.
 
-      // Second instance of useCustomEventListener
-      useCustomEventListener({
-        parentSelector: '#parent-container2', // Another parent container selector
-        elementTypes: ['button', 'a'], // Elements to listen for
-        primaryAttribute: 'data-track-click', // Another primary attribute to check for
-        callback: handleShowNotification, // Same callback function
-        secondaryAttribute: 'data-action', // Same secondary attribute
-        onError: handleError, // Same global error callback
-        removeExtraParamsAfterAdding: false // Do not remove extra params after adding
-      });
-
-      return (
-        <>
-          <h1>Custom Event Listener Example</h1>
-          <div id="parent-container1">
-            <h2>Parent Container 1</h2>
-            <button
-              onClick={onButtonClick}
-              data-log-click="button1"
-              data-action="signin"
-            >
-              Button 1
-            </button>
-            <button
-              onClick={onButtonClick}
-              data-log-click="button2"
-              data-action="add_to_cart"
-            >
-              Button 2
-            </button>
-            <button
-              onClick={onButtonClick}
-              data-log-click="button3"
-            >
-              Button 3
-            </button>
-          </div>
-          <div id="parent-container2">
-            <h2>Parent Container 2</h2>
-            <button
-              onClick={onButtonClick}
-              data-track-click="button4"
-              data-action="signup"
-            >
-              Button 4
-            </button>
-            <button
-              onClick={onButtonClick}
-              data-track-click="button5"
-              data-action="checkout"
-            >
-              Button 5
-            </button>
-          </div>
-        </>
-      );
-    };
-
-    function App() {
-      return (
-        <div className="app">
-          <CustomListenerComponent />
-        </div>
-      );
-    }
-
-    export default App;`
-
-### Props Usage
+## Props Usage
 
 | Prop                           | Description                                                                                                              | Example                  | Optional |
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------ | -------- |
@@ -132,8 +46,12 @@ Install `react-event-listener-utils` via npm :
 | `onError`                      | Optional global error callback function to handle errors thrown during event handling.                                   | `handleError`            | Optional |
 | `removeExtraParamsAfterAdding` | Boolean flag indicating whether to remove the `data-extra-params` attribute after callback execution.                    | `false`                  | Optional |
 
+## Feedback
+
+If you have any feedback, please reach out to me at praveenpr1998@gmail.com
+
 ### Contribution
 
 Contributions are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
-By Order Of The Peaky Blinders.
+By Order of the Peaky Blinders!
